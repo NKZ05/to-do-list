@@ -1,13 +1,49 @@
-// feature/complete-task
-taskList.addEventListener('click', (e) => {
-    if (e.target.classList.contains('complete-btn')) {
-      const li = e.target.parentElement;
-      li.classList.toggle('completed');
-    }
-  });
-// feature/filter-tasks
+// Sélection des éléments
+const input = document.getElementById('task-input');
+const addBtn = document.getElementById('add-btn');
+const taskList = document.getElementById('task-list');
 const filterButtons = document.querySelectorAll('.filters button');
 
+// feature/add-task
+addBtn.addEventListener('click', () => {
+  const taskText = input.value.trim();
+  if (taskText !== '') {
+    const li = document.createElement('li');
+
+    const span = document.createElement('span');
+    span.textContent = taskText;
+
+    const completeBtn = document.createElement('button');
+    completeBtn.textContent = '✔️';
+    completeBtn.classList.add('complete-btn');
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = '🗑️';
+    deleteBtn.classList.add('delete-btn');
+
+    li.append(span, completeBtn, deleteBtn);
+    taskList.appendChild(li);
+    input.value = '';
+  }
+});
+
+// feature/delete-task
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn')) {
+    const li = e.target.parentElement;
+    li.remove();
+  }
+});
+
+// feature/complete-task
+taskList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('complete-btn')) {
+    const li = e.target.parentElement;
+    li.classList.toggle('completed');
+  }
+});
+
+// feature/filter-tasks
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     // Activer le bouton sélectionné
@@ -31,21 +67,4 @@ filterButtons.forEach(btn => {
       }
     });
   });
-// feature/delete-task
-taskList.addEventListener('click', (e) => {
-  if (e.target.classList.contains('delete-btn')) {
-    const li = e.target.parentElement;
-    li.remove();
-const input = document.getElementById('task-input');
-const addBtn = document.getElementById('add-btn');
-const taskList = document.getElementById('task-list');
-
-addBtn.addEventListener('click', () => {
-  const taskText = input.value.trim();
-  if (taskText !== '') {
-    const li = document.createElement('li');
-    li.textContent = taskText;
-    taskList.appendChild(li);
-    input.value = '';
-  }
 });
